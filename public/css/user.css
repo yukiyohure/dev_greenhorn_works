@@ -1,0 +1,77 @@
+.container__inner {
+  padding-top: 100px;
+}
+
+.user__btn {
+  display: block;
+  padding: 20px 20px;
+  font-size: 24px;
+  text-align: center;
+  color: #fff;
+}
+
+.user__btn:visited {
+  opacity: 0.7;
+  color: #fff;
+}
+
+.user__btn:hover {
+  opacity: 0.7;
+  color: #fff;
+  box-shadow: 0 5px 60px rgba(40, 250, 40, .4);
+  text-decoration: none !important
+}
+
+.user__btn:active {
+  opacity: 0.7;
+  color: #fff;
+}
+
+.btn-work__schedules {
+  background-color: #5ba654;
+  border-bottom: 3px solid #5ba654;
+  border-right: 3px solid #5ba654;
+}
+
+.btn-work__schedules:hover {
+  border-bottom: 1px solid #0c6641;
+  border-right: 1px solid #0c6641;
+}
+
+.btn__daily__reports {
+  background-color: #5ba654;
+  border-bottom: 3px solid #5ba654;
+  border-right: 3px solid #5ba654;
+}
+
+.btn__daily__reports:hover {
+  border-bottom: 1px solid #7d7409;
+  border-right: 1px solid #7d7409;
+}
+
+.search-buton-wrapper {
+  text-align: center;
+  padding-top: 15px;
+}
+
+@media screen and (max-width: 1199px) and (min-width: 767px)
+{
+  .btn-work__schedules {
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (max-width: 766px)
+{
+  .user__btn {
+    font-size: 18px;
+  }
+  .btn-work__schedules {
+    margin-bottom: 20px;
+  }
+}
+
+.textarea {
+  resize: none;
+  height: 240px;
+}

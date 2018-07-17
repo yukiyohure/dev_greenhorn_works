@@ -1,0 +1,140 @@
+.screen_size {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+.main {
+  background: radial-gradient(ellipse closest-side, #150A08 99%, white);
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  margin: auto;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 160px #fff, 0 0 20px #fff;
+}
+
+.main_hover  {
+  background-color: #150A08;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginform_sizer {
+  text-align: center;
+}
+
+.formtop {
+  display: none;
+  margin-bottom: 250px;
+}
+
+.title {
+  font-size: 65px;
+  color: #5ba654;
+  font-size: bold;
+  text-shadow: 0px 3px #005f25, 8px 11px 20px #00733c;
+}
+
+.subtitle {
+  font-size: 20px;
+  margin-top: 30px;
+  margin-bottom: 0;
+  color:  #fff;
+  text-shadow: 7px 3px 7px #fff;
+}
+
+.giz_icon {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  width: 132px;
+  height: 132px;
+  margin: auto;
+}
+
+.formbottom {
+  display: none;
+}
+
+.btn_def {
+  opacity: .4;
+  border: none;
+  background-color: #000;
+  padding: 0;
+  border-radius: 12px;
+  margin-bottom: 10px;
+}
+.btn_def:hover {
+  opacity: 1;
+  box-shadow: 0 0 30px #fff;
+  animation: spark 1s linear;
+}
+
+@-webkit-keyframes spark {
+  0% {
+           opacity: 0;
+     }
+
+   4% {
+           opacity: 1;
+      }
+
+  5% {
+           opacity: 0;
+      }
+
+   9% {
+           opacity: 1;
+      }
+
+  10% {
+           opacity: 0;
+      }
+
+  35% {
+           opacity: 1;
+      }
+
+  36% {
+          opacity: 0;
+      }
+
+  39% {
+           opacity: 1;
+      }
+
+  40% {
+          opacity: 0;
+      }
+
+  59% {
+          opacity: 1;
+      }
+
+  60% {
+          opacity: 0;
+      }
+
+  100% {
+          opacity: 1;
+       }
+}
+

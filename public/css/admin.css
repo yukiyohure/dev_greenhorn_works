@@ -1,0 +1,124 @@
+
+.admin__btn {
+  display: block;
+  padding: 20px 20px;
+  font-size: 24px;
+  text-align: center;
+  color: #fff;
+}
+
+.admin__btn:visited {
+  opacity: 0.7;
+  color: #fff;
+}
+
+.admin__btn:hover {
+  opacity: 0.7;
+  color: #fff;
+}
+
+.admin__btn:active {
+  opacity: 0.7;
+  color: #fff;
+}
+
+.btn-work__schedules {
+  background-color: #20895e;
+  border-bottom: 3px solid #0c6641;
+  border-right: 3px solid #0c6641;
+}
+
+.btn-work__schedules:hover {
+  border-bottom: 1px solid #0c6641;
+  border-right: 1px solid #0c6641;
+}
+
+.btn__daily__reports {
+  background-color: #b3a92a;
+  border-bottom: 3px solid #7d7409;
+  border-right: 3px solid #7d7409;
+}
+
+.btn__daily__reports:hover {
+  border-bottom: 1px solid #7d7409;
+  border-right: 1px solid #7d7409;
+}
+.btn-user {
+  background-color: #2a8eb3;
+  border-bottom: 3px solid #054f6a;
+  border-right: 3px solid #054f6a;
+}
+
+.btn-user:hover {
+  border-bottom: 1px solid #054f6a;
+  border-right: 1px solid #054f6a;
+}
+.btn-store {
+  background-color: #b34f2a;
+  border-bottom: 3px solid #6c2206;
+  border-right: 3px solid #6c2206;
+}
+
+.btn-store:hover {
+  border-bottom: 1px solid #6c2206;
+  border-right: 1px solid #6c2206;
+}
+
+.btn-admin {
+  background-color: #73736f;
+  border-bottom: 3px solid #3e3e3e;
+  border-right: 3px solid #3e3e3e;
+}
+
+.btn-admin:hover {
+  border-bottom: 1px solid #3e3e3e;
+  border-right: 1px solid #3e3e3e;
+}
+
+.container__inner {
+  padding: 10px 0;
+}
+
+/* 管理ユーザーCRUDに使用するクラス */
+
+.container__box {
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 11px;
+}
+
+.container__box__txt {
+  margin: 0;
+}
+.container__box__link {
+  float: right;
+}
+
+/*-----------------------------------*/
+
+@media screen and (max-width: 1199px) and (min-width: 767px)
+{
+  .btn-work__schedules {
+    margin-bottom: 20px;
+  }
+
+  .btn-store {
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (max-width: 766px)
+{
+  .admin__btn {
+    font-size: 18px;
+  }
+
+  .btn-work__schedules {
+    margin-bottom: 20px;
+  }
+
+  .btn-store {
+    margin-bottom: 20px;
+  }
+}

@@ -1,0 +1,91 @@
+.markdownHelp_body {
+  width: 50%;
+}
+
+.modalScroll {
+  position: absolute;
+  width: 100%;
+  max-height: 500px;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+textarea {
+  resize: none;
+  width: 100%;
+}
+
+.border-botton {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.bodercode {
+  margin: 0;
+  padding-left: 10px;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+}
+
+.height-bodercode {
+  padding-top: 30px;
+  height: 200px;
+}
+
+.middle-bodercode {
+  padding-top: 15px;
+  height: 120px;
+}
+
+.list-bodercode {
+  padding-top: 15px;
+  height: 90px;
+}
+
+.markdown-nav > li {
+  float: left;
+  width: 33.3333%;
+  font-size: 14px;
+  line-height: 30px;
+  text-align: center;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.markdown-nav > li:hover {
+  background-color: #5ba654;
+  color: #fff;
+}
+
+.border-left {
+  border-left: solid 4px #ddd;
+}
+
+.border-left-padding {
+  margin-left: 10px;
+  padding: 5px;
+  border-left: solid 4px #ddd;
+}
+
+.font-weight {
+  font-weight: 700;
+}
+
+.is-hidden {
+  display:none;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.markdown-paddingleft {
+  padding-left: 30px;
+}
+
+.markdownlink-header {
+  font-size: 13px;
+}
+
+.paddingleft-none {
+  padding-left: 0;
+}
