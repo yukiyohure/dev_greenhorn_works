@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Entities\TagCategory;
+use App\Models\TagCategory;
 
 class TagCategoriesSeeder extends Seeder
 {

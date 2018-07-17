@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Entities\DailyReports;
+use App\Models\DailyReports;
 use Carbon\Carbon;
 
 class DailyReportsTableSeeder extends Seeder

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Entities\RentInfos;
+use App\Models\RentInfos;
 
 class RentInfosTableSeeder extends Seeder
 {

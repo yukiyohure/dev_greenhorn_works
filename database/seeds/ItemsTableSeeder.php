@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Entities\Items;
+use App\Models\Items;
 
 class ItemsTableSeeder extends Seeder
 {
