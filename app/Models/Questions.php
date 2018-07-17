@@ -3,14 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Prettus\Repository\Contracts\Transformable;
-use Prettus\Repository\Traits\TransformableTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use cebe\markdown\Markdown;
 
-class Questions extends Model implements Transformable
+class Questions extends Model
 {
-    use TransformableTrait,SoftDeletes;
+    use SoftDeletes;
 
     protected $fillable = [
         'user_id',
@@ -27,7 +25,6 @@ class Questions extends Model implements Transformable
         return $this->belongsTo('App\Models\User');
     }
 
-
     public function category()
     {
         return $this->belongsTo('App\Models\TagCategory', 'tag_category_id');
@@ -36,7 +33,6 @@ class Questions extends Model implements Transformable
     public function parse()
     {
         $parser = new Markdown();
-
         return $parser->parse($this->content);
     }
 
@@ -48,7 +44,7 @@ class Questions extends Model implements Transformable
     public function getAllQuestions()
     {
         $question = $this->orderBy('question_time', 'desc')
-                             ->get();
+                         ->get();
         return $question;
     }
 

@@ -4,13 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Prettus\Repository\Contracts\Transformable;
-use Prettus\Repository\Traits\TransformableTrait;
 use Intervention\Image\ImageManagerStatic as Image;
 
-class WorkSchedules extends Model implements Transformable
+class WorkSchedules extends Model
 {
-    use TransformableTrait, SoftDeletes;
+    use SoftDeletes;
 
     public $updateDir = 'schedules/';
 

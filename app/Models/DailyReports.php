@@ -4,12 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Prettus\Repository\Contracts\Transformable;
-use Prettus\Repository\Traits\TransformableTrait;
 
-class DailyReports extends Model implements Transformable
+class DailyReports extends Model
 {
-    use TransformableTrait, SoftDeletes;
+    use SoftDeletes;
 
     protected $fillable = [
         'user_id',
@@ -18,7 +16,6 @@ class DailyReports extends Model implements Transformable
         'reporting_time',
     ];
 
-    // 論削用
     protected $dates = ['deleted_at'];
 
     public function user()

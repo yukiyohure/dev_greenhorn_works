@@ -3,14 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Prettus\Repository\Contracts\Transformable;
-use Prettus\Repository\Traits\TransformableTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Items;
 
-class ItemCategory extends Model implements Transformable
+class ItemCategory extends Model
 {
-    use TransformableTrait, SoftDeletes;
+    use SoftDeletes;
 
     protected $fillable = [
         'category',

@@ -4,13 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Prettus\Repository\Contracts\Transformable;
-use Prettus\Repository\Traits\TransformableTrait;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class AdminUsers extends Authenticatable implements Transformable
+class AdminUsers extends Authenticatable
 {
-    use TransformableTrait, SoftDeletes;
+    use SoftDeletes;
 
     protected $fillable = [
         'name',

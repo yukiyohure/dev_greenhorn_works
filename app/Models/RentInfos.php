@@ -3,13 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Prettus\Repository\Contracts\Transformable;
-use Prettus\Repository\Traits\TransformableTrait;
 
-class RentInfos extends Model implements Transformable
+class RentInfos extends Model
 {
-    use TransformableTrait;
-
     protected $fillable = [
         'user_id',
         'item_id',
