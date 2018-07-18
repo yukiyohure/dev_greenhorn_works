@@ -18,7 +18,7 @@ composer install
 ```
 ### .env の編集  
 
-```
+```shell
 # DB設定を以下のように編集
 DB_CONNECTION=mysql
 DB_HOST=db
@@ -52,7 +52,7 @@ SLACK_REDIRECT_URI=http://localhost:8080/callback
 docker-compose exec web bash
 cd var/www/dev_grennhorn_works
 ```
-```php
+```shell
 php artisan key:generate
 php artisan migrate --seed
 ```
