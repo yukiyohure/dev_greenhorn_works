@@ -60,7 +60,7 @@ php artisan migrate --seed
 ### Access URL  
 [http://localhost:8080](http://localhost:8080)  
 
-
+テスト
 
 
 
