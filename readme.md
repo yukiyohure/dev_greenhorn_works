@@ -9,9 +9,9 @@
 - 任意の場所に作業用ディレクトリを作ってそこに配置  
 
 ```shell
-docker-compose -d --build
+docker-compose up -d --build
 cd www
-git clone {このリポジトリのURL}
+git clone このリポジトリのURL
 cd dev_greenhorn_works
 cp .env{.example,}
 composer install
