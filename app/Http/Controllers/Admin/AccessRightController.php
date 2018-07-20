@@ -62,18 +62,21 @@ class AccessRightController extends Controller
         $inputs['user_info_id'] = $adminuserinfo['id'] ?? '';
         $inputs['first_name'] = $adminuserinfo['first_name'] ?? '';
         $inputs['last_name'] = $adminuserinfo['last_name'] ?? '';
-        $inputs['email'] = $adminuserinfo['email'] ?? '';
+        //$inputs['email'] = $adminuserinfo['email'] ?? '';
         //$inputs['authorizer_email'] = $authorizer_email;
+        var_dump($inputs);
+        exit;
 
         // メールで内容とView (access_permission_email.blade.php)を付与して送信
         //Mail::to($authorizer_email)->send(new ApplicationMail($inputs));
 
-        $slackApiKey = 'sDGQDGMIuN0z9VeEE8OnkZRx'; //上で作成したAPIキー //ok
-        //$text = urlencode('投稿されたよ。' . json_encode($inputs)); //配列の文字列変換、urlエンコードOK
-        $text = 'こんにちは';
-        $text = urlencode('投稿されたよ' .$text);
-        $url = "https://slack.com/api/chat.postMessage?token=${slackApiKey}&channel=%23ch_okubo&username=huga-bot&text=${text}&as_user=true";
-        $respons =  file_get_contents($url);
+        $slackApiKey = 'xoxp-42620444977-362509122881-400641301381-e88a476b0565405b24d0e1ed3b31a695'; //上で作成したAPIキー //ok
+        $text = urlencode($inputs['message']); //配列の文字列変換、urlエンコードOK
+        $target = urlencode("@jun.okb.115");
+        //var_dump($text);
+        //exit;
+        $url = "https://slack.com/api/chat.postMessage?token=${slackApiKey}&channel=${target}&as_user=false&username=greenhorn_bot&text=${text}";
+        $respons = file_get_contents($url);
         var_dump($respons);
         exit;
 
