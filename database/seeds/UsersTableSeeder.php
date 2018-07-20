@@ -14,11 +14,11 @@ class UsersTableSeeder extends Seeder
       'user_info_id' => 1
     ],[
       'name' => 'test1',
-      'password' => bcrypt('1234'),
+      'password' => bcrypt('2345'),
       'user_info_id' => 2
     ],[
       'name' => 'test2',
-      'password' => bcrypt('1234'),
+      'password' => bcrypt('3456'),
       'user_info_id' => 3
     ]);
   }
