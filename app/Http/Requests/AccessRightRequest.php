@@ -24,16 +24,14 @@ class AccessRightRequest extends FormRequest
     public function rules()
     {
       return [
-        'authorizer_id' => 'required',
-        'message' => 'required|max:2000'
+        'message' => 'required|max:500'
       ];
     }
 
     public function messages()
     {
       return [
-        'authorizer_id.required' => '承認者を選択してください',
-        'message.max' => '1000文字を超えないでください',
+        'message.max' => '500文字を超えないでください',
         'message.required' => 'メッセージを記入してください'
       ];
     }

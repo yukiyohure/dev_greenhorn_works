@@ -39,7 +39,7 @@ class AccessRightController extends Controller
         return view('admin.access_right.index', compact('adminuserinfos'));
     }
 
-    public function sendMail(Request $request)
+    public function sendMail(Request $request, AccessRightRequest $req)
     {
         $adminUserId = Auth::id();
 
