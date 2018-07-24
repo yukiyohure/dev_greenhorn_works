@@ -41,44 +41,29 @@ class AccessRightController extends Controller
 
     public function sendMail(Request $request)
     {
-        $admin_user_id = Auth::id();
+        $adminUserId = Auth::id();
 
         // 申請者からの入力情報を全て取得
         // 内容: authorizer_id, message
         $inputs = $request->all();
 
         // 管理者の詳細情報をIdで取得
-        $adminuserinfo = $this->userinfos
-                              ->getUserInfoByAdminUserId($admin_user_id)
+        $adminUserInfo = $this->userinfos
+                              ->getUserInfoByAdminUserId($adminUserId)
                               ->first();
 
-        // 承認者のメールアドレスを承認者のuser_info_idで検索し、UserInfosテーブルから取得
-        //$authorizer_email = $this->userinfos
-                                 //->getEmailByUserInfoId($inputs['authorizer_id'])
-                                 //->first()
-                                 //->email;
+        $inputs['user_info_id'] = $adminUserInfo['id'] ?? '';
+        $inputs['first_name'] = $adminUserInfo['first_name'] ?? '';
+        $inputs['last_name'] = $adminUserInfo['last_name'] ?? '';
+        $adminUserFullname = $inputs['last_name'] . " " . $inputs['first_name'];
 
-
-        $inputs['user_info_id'] = $adminuserinfo['id'] ?? '';
-        $inputs['first_name'] = $adminuserinfo['first_name'] ?? '';
-        $inputs['last_name'] = $adminuserinfo['last_name'] ?? '';
-        //$inputs['email'] = $adminuserinfo['email'] ?? '';
-        //$inputs['authorizer_email'] = $authorizer_email;
-        var_dump($inputs);
-        exit;
-
-        // メールで内容とView (access_permission_email.blade.php)を付与して送信
-        //Mail::to($authorizer_email)->send(new ApplicationMail($inputs));
-
+        //以下slack Apiのロジック
         $slackApiKey = 'xoxp-42620444977-362509122881-400641301381-e88a476b0565405b24d0e1ed3b31a695'; //上で作成したAPIキー //ok
-        $text = urlencode($inputs['message']); //配列の文字列変換、urlエンコードOK
-        $target = urlencode("@jun.okb.115");
-        //var_dump($text);
-        //exit;
-        $url = "https://slack.com/api/chat.postMessage?token=${slackApiKey}&channel=${target}&as_user=false&username=greenhorn_bot&text=${text}";
+        $text = "{". $adminUserFullname . "}さんからのお問い合わせ: " .  "「" . $inputs['message'] . "」";
+        $textTarget = urlencode($text);
+        $channelTarget = urlencode("@jun.okb.115");
+        $url = "https://slack.com/api/chat.postMessage?token=${slackApiKey}&channel=${channelTarget}&as_user=false&username=greenhorn_bot&text=${textTarget}";
         $respons = file_get_contents($url);
-        var_dump($respons);
-        exit;
 
         // メール送信完了画面を表示
         return view('admin.access_right.email_sent');
