@@ -4,6 +4,7 @@
 
 <?php $message_placeholder = '例）ユーザーと店舗を作成・更新・編集したいので、その権限を頂けますか？'; ?>
 
+<!-- <meta name="csrf-token" content="{{ csrf_token() }}"> -->
 
 <div style="padding: 30px"> <!-- このstyle属性は一時的処置です -->
   <h1>権限申請</h1>
@@ -26,4 +27,7 @@
     <button class="btn btn-primary" style="float: right; clear: both; margin-top: 20px">送信</button> <!-- このstyle属性は一時的処置です -->
   {!! Form::close() !!}
 </div>
+
 @endsection
+
+
