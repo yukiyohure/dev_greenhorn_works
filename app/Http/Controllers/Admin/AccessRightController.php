@@ -53,23 +53,13 @@ class AccessRightController extends Controller
                               ->getUserInfoByAdminUserId($adminUserId)
                               ->first();
 
-        $adminUserFullname = $adminUserInfo['last_name'] . " " . $adminUserInfo['first_name'];
-
-        //以下slack Apiのロジック
-        $slackApiKey = env('SLACK_API_KEY');
-        $text = "{". $adminUserFullname . "}さんからのお問い合わせ: " .  "「" . $inputs['message'] . "」";
-        $textTarget = urlencode($text);
-        $channelTarget = urlencode(TARGET);
-        $url = "https://slack.com/api/chat.postMessage?token=${slackApiKey}&channel=${channelTarget}&as_user=false&username=greenhorn_bot&text=${textTarget}";
-
-        try
-        {
-            $response = file_get_contents($url);
-            // メール送信完了画面を表示
+        //slackメッセージ送信
+        try {
+            $this->sendSlackMessage($adminUserInfo, $inputs);
             return view('admin.access_right.slack_sent');
-        } catch(\Exception $e) {
-            echo "おっと！通信エラーみたいです。もう一度試して！";
-            exit();
+        } catch (\Exception $e) {
+            $messageForErr = $inputs['message'];
+            return view('admin.access_right.index', compact('messageForErr'));
         }
     }
 
@@ -113,6 +103,18 @@ class AccessRightController extends Controller
         }
 
         return $inputs;
+    }
+
+    //slack Apiのロジック
+    public function sendSlackMessage($adminUserInfo, $inputs)
+    {
+        $adminUserFullname = $adminUserInfo['last_name'] . " " . $adminUserInfo['first_name'];
+        $slackApiKey = env('SLACK_API_KEY');
+        $text = "{". $adminUserFullname . "}さんからのお問い合わせ: " .  "「" . $inputs['message'] . "」";
+        $textTarget = urlencode($text);
+        $channelTarget = urlencode(TARGET);
+        $url = "https://slack.com/api/chat.postMessage?token=${slackApiKey}&channel=${channelTarget}&as_user=false&username=greenhorn_bot&text=${textTarget}";
+        $response = file_get_contents($url);
     }
 
 }
