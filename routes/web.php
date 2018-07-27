@@ -15,7 +15,7 @@ Auth::routes();
 Route::group(['prefix' => '/'], function() {
   Route::get('/', function () {
     if (Auth::check()){
-      return view('index');
+      return redirect()->route('home');
     }else{
       return view('auth/login');
     };
