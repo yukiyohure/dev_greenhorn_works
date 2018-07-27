@@ -13,7 +13,7 @@ class AccessRightRequest extends FormRequest
      */
     public function authorize()
     {
-      return true;
+        return true;
     }
 
     /**
@@ -23,16 +23,16 @@ class AccessRightRequest extends FormRequest
      */
     public function rules()
     {
-      return [
-        'message' => 'required|max:500'
-      ];
+        return [
+            'message' => 'required|max:500'
+        ];
     }
 
     public function messages()
     {
-      return [
-        'message.max' => '500文字を超えないでください',
-        'message.required' => 'メッセージを記入してください'
-      ];
+        return [
+            'message.max' => '500文字を超えないでください',
+            'message.required' => 'メッセージを記入してください'
+        ];
     }
 }
