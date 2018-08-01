@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Mail;
 use App\Services\Classes\Cryptogram;
 
-const TARGET = "@jun.okb.115";
+const TARGET = "@greenhorn_modify_team";
 
 class AccessRightController extends Controller
 {
