@@ -24,7 +24,8 @@ class UserInfos extends Authenticatable
         'store_id',
         'access_right',
         'position_name',
-        'position_code'
+        'position_code',
+        'isRegistered'
     ];
 
     protected $dates = ['deleted_at'];
@@ -152,6 +153,18 @@ class UserInfos extends Authenticatable
          ]);
     }
 
+    public function updateUserInfoTest($input, $userId)
+    {
+        $this->where('id',$userId)->update([
+            'sex' => $input['sex'],
+            'birthday' => $input['birthday'],
+            'tel'=>$input['tel'],
+            'hire_date'=>$input['hire_date'],
+            'store_id'=>$input['store_id'],
+            'is_registered'=>'1'
+         ]);
+    }
+
     public function getUserRecord($email)
     {
         return $this->where('email', $email)->first();
@@ -233,5 +246,11 @@ class UserInfos extends Authenticatable
         $userInfo->save();
         return $userInfo;
     }
+
+    public function getIsRegistered($userId)
+    {
+        return $this->where('id', $userId)->first()->is_registered;
+    }
+
 }
 
