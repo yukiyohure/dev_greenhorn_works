@@ -13,9 +13,9 @@ class AddIsRegisteredToUserInfosTable extends Migration
      */
     public function up()
     {
-      Schema::table('user_infos', function (Blueprint $table) {
-          $table->integer('is_registered')->after('position_code');
-      });
+        Schema::table('user_infos', function (Blueprint $table) {
+            $table->integer('is_registered')->after('position_code');
+        });
     }
 
     /**
@@ -25,8 +25,8 @@ class AddIsRegisteredToUserInfosTable extends Migration
      */
     public function down()
     {
-      Schema::table('user_infos', function (Blueprint $table) {
-          $table->dropColumn('is_registered');
-      });
+        Schema::table('user_infos', function (Blueprint $table) {
+            $table->dropColumn('is_registered');
+        });
     }
 }
