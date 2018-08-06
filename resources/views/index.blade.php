@@ -9,7 +9,7 @@
       {!! Form::open(['ruote' => 'home', 'method' => 'POST']) !!}
         <table class="search-table">
           <thead class="search-thead"></thead>
-          <div class="modal-header">詳細情報を入力してください</div>
+          <div class="modal-header">個人情報の詳細</div>
           <tbody class="search-tbody">
             <tr>
               <td class="search-td">
