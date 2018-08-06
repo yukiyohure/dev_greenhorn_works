@@ -8,9 +8,8 @@
     <div>
       {!! Form::open(['ruote' => 'home', 'method' => 'POST']) !!}
         <table class="search-table">
-          <thead class="search-thead">
-          </thead>
-          <div class="modal-header"></div>
+          <thead class="search-thead"></thead>
+          <div class="modal-header">詳細情報を入力してください</div>
           <tbody class="search-tbody">
             <tr>
               <td class="search-td">
@@ -23,7 +22,7 @@
                                   '' =>'未選択',
                                   '男' => '男性',
                                   '女' => '女性'
-                                ], ['class' => 'form-control', 'required' => 'required'])
+                                ], ['class' => 'form-control'])
                 }}
                 <span class="help-block required">{{ $errors->first('sex') }}</span>
               </td>
@@ -59,8 +58,8 @@
                 </label>
               </td>
               <td class="search-td">
-                {!! Form::input('date', 'birthday', '', ['class' => 'form-control', 'required' => 'required', 'min' => '1800-01-01', 'max' => '9999-12-31']) !!}
-              <span class="help-block required">{{ $errors->first('birthday') }}</span>
+                {!! Form::input('date', 'birthday', '', ['class' => 'form-control', 'required' => 'required', 'max' => '9999-12-31']) !!}
+                <span class="help-block required">{{ $errors->first('birthday') }}</span>
               </td>
             </tr>
             <tr>
@@ -70,9 +69,9 @@
                 </label>
               </td>
               <td class="search-td">
-                {!! Form::input('date', 'hire_date', '', ['class' => 'form-control', 'required' => 'required', 'min' => '1800-01-01', 'max' => '9999-12-31']) !!}
+                {!! Form::input('date', 'hire_date', '', ['class' => 'form-control', 'required' => 'required', 'min' => '2015-05-15', 'max' => '9999-12-31']) !!}
+                <span class="help-block required">{{ $errors->first('hire_date') }}</span>
               </td>
-              <span class="help-block required">{{ $errors->first('hire_date') }}</span>
             </tr>
           </tbody>
           <tfoot class="search-tfoot">

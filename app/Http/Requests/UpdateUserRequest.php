@@ -30,9 +30,9 @@ class UpdateUserRequest extends FormRequest
                 Rule::in(['男', '女']),
             ],
             'store_id' => 'required|integer|between:1,3',
-            'tel' => 'required',
-            'birthday' => 'required',
-            'hire_date' => 'required'
+            'tel' => 'required|numeric|digits:11',
+            'birthday' => 'required|date|before:today',
+            'hire_date' => 'required|date|after:2015-05-15'
         ];
     }
 
@@ -45,8 +45,14 @@ class UpdateUserRequest extends FormRequest
             'store_id.integer' => '入力が間違っています',
             'store_id.between' => '正しく入力してください',
             'tel.required' => '入力されていません',
+            'tel.numeric' => '半角英数で入力してください',
+            'tel.digits' => '入力が間違っています',
             'birthday.required' => '入力されていません',
-            'hire_date.required' => '入力されていません'
+            'birthday.date' => '入力に誤りがあります',
+            'birthday.before' => '今日より前の日付を入力してください',
+            'hire_date.required' => '入力されていません',
+            'hire_date.date' => '入力に誤りがあります',
+            'hire_date.after' => '2015/05/15以降の日付を入力してください'
         ];
     }
 }
