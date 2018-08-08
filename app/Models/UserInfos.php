@@ -252,5 +252,53 @@ class UserInfos extends Authenticatable
         return $this->where('id', $userId)->first()->is_registered;
     }
 
+    public function getCheckColumn($userId)
+    {
+        $checkColumn = $this->where('id', $userId)->first();
+        $requiredColumn = [
+            'tel' => $checkColumn->tel,
+            'sex' => $checkColumn->sex,
+            'birthday' => $checkColumn->birthday,
+            'hire_date' => $checkColumn->hire_date,
+            'store_id' => $checkColumn->store_id,
+            'is_registered' => $checkColumn->is_registered
+        ];
+
+        extract($requiredColumn);
+
+        $birthdayDate = date_create($birthday);
+        $hireDate = date_create($hire_date);
+
+        if (!empty($hire_date) && !empty($birthday)) {
+            $hire_date = date_format($hireDate , 'Y-m-d');
+            $requiredColumn['hire_date'] = $hire_date;
+            $birthday = date_format($birthdayDate, 'Y-m-d');
+            $requiredColumn['birthday'] = $birthday;
+        } elseif (!empty($birthday)){
+            $requiredColumn['hire_date'] = NULL;
+            $birthday = date_format($birthdayDate, 'Y-m-d');
+            $requiredColumn['birthday'] = $birthday;
+        } elseif (!empty($hire_date)){
+            $requiredColumn['birthday'] = NULL;
+            $hire_date = date_format($hireDate , 'Y-m-d');
+            $requiredColumn['hire_date'] = $hire_date;
+        } else {
+            $requiredColumn['hire_date'] = NULL;
+            $requiredColumn['birthday'] = NULL;
+        }
+
+        return $requiredColumn;
+    }
+
+    public function updateCheckColumn($userId, $requiredColumn)
+    {
+        $checkColumn = $this->where('id', $userId)->first();
+        $this->where('id',$userId)->update(['is_registered' => 1]);
+        $requiredColumn['is_registered'] = 1;
+
+        return $requiredColumn;
+    }
+
+
 }
 
