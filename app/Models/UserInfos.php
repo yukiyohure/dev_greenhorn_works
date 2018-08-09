@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\notifications\ResetPasswordNotification;
+use DB;
 
 class UserInfos extends Authenticatable
 {
@@ -24,7 +25,8 @@ class UserInfos extends Authenticatable
         'store_id',
         'access_right',
         'position_name',
-        'position_code'
+        'position_code',
+        'isRegistered'
     ];
 
     protected $dates = ['deleted_at'];
@@ -152,6 +154,18 @@ class UserInfos extends Authenticatable
          ]);
     }
 
+    public function updateUserInfoTest($input, $userId)
+    {
+        $this->where('id',$userId)->update([
+            'sex' => $input['sex'],
+            'birthday' => $input['birthday'],
+            'tel'=>$input['tel'],
+            'hire_date'=>$input['hire_date'],
+            'store_id'=>$input['store_id'],
+            'is_registered'=>'1'
+         ]);
+    }
+
     public function getUserRecord($email)
     {
         return $this->where('email', $email)->first();
@@ -233,5 +247,55 @@ class UserInfos extends Authenticatable
         $userInfo->save();
         return $userInfo;
     }
+
+    public function getCheckColumn($userId)
+    {
+        $checkColumn = $this->where('id', $userId)->first();
+        $requiredColumn = [
+            'tel' => $checkColumn->tel,
+            'sex' => $checkColumn->sex,
+            'birthday' => $checkColumn->birthday,
+            'hire_date' => $checkColumn->hire_date,
+            'store_id' => $checkColumn->store_id,
+            'is_registered' => $checkColumn->is_registered
+        ];
+
+        extract($requiredColumn);
+
+        $birthdayDate = date_create($birthday);
+        $hireDate = date_create($hire_date);
+
+        if (!empty($hire_date) && !empty($birthday)) {
+            $hire_date = date_format($hireDate , 'Y-m-d');
+            $requiredColumn['hire_date'] = $hire_date;
+            $birthday = date_format($birthdayDate, 'Y-m-d');
+            $requiredColumn['birthday'] = $birthday;
+        } elseif (!empty($birthday)) {
+            $requiredColumn['hire_date'] = NULL;
+            $birthday = date_format($birthdayDate, 'Y-m-d');
+            $requiredColumn['birthday'] = $birthday;
+        } elseif (!empty($hire_date)) {
+            $requiredColumn['birthday'] = NULL;
+            $hire_date = date_format($hireDate , 'Y-m-d');
+            $requiredColumn['hire_date'] = $hire_date;
+        } else {
+            $requiredColumn['hire_date'] = NULL;
+            $requiredColumn['birthday'] = NULL;
+        }
+
+        return $requiredColumn;
+    }
+
+    public function updateCheckColumn($userId, $requiredColumn)
+    {
+        DB::transaction(function() use($userId) {
+            $this->where('id',$userId)->update(['is_registered' => 1]);
+        });
+        $requiredColumn['is_registered'] = 1;
+
+        return $requiredColumn;
+    }
+
+
 }
 
