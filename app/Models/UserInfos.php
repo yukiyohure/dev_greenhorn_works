@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\notifications\ResetPasswordNotification;
+use DB;
 
 class UserInfos extends Authenticatable
 {
@@ -247,11 +248,6 @@ class UserInfos extends Authenticatable
         return $userInfo;
     }
 
-    public function getIsRegistered($userId)
-    {
-        return $this->where('id', $userId)->first()->is_registered;
-    }
-
     public function getCheckColumn($userId)
     {
         $checkColumn = $this->where('id', $userId)->first();
@@ -274,11 +270,11 @@ class UserInfos extends Authenticatable
             $requiredColumn['hire_date'] = $hire_date;
             $birthday = date_format($birthdayDate, 'Y-m-d');
             $requiredColumn['birthday'] = $birthday;
-        } elseif (!empty($birthday)){
+        } elseif (!empty($birthday)) {
             $requiredColumn['hire_date'] = NULL;
             $birthday = date_format($birthdayDate, 'Y-m-d');
             $requiredColumn['birthday'] = $birthday;
-        } elseif (!empty($hire_date)){
+        } elseif (!empty($hire_date)) {
             $requiredColumn['birthday'] = NULL;
             $hire_date = date_format($hireDate , 'Y-m-d');
             $requiredColumn['hire_date'] = $hire_date;
@@ -292,8 +288,9 @@ class UserInfos extends Authenticatable
 
     public function updateCheckColumn($userId, $requiredColumn)
     {
-        $checkColumn = $this->where('id', $userId)->first();
-        $this->where('id',$userId)->update(['is_registered' => 1]);
+        DB::transaction(function() use($userId) {
+            $this->where('id',$userId)->update(['is_registered' => 1]);
+        });
         $requiredColumn['is_registered'] = 1;
 
         return $requiredColumn;
