@@ -2,7 +2,7 @@
 
 @section('outline')
 <body>
-  @if(!$requiredColumn['is_registered'])
+  @if($requiredColumn['is_registered'] === 0)
     <!-- modal -->
     <div class="modalDialog showModal">
       <div>
