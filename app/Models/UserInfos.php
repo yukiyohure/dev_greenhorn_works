@@ -265,35 +265,22 @@ class UserInfos extends Authenticatable
         $birthdayDate = date_create($birthday);
         $hireDate = date_create($hire_date);
 
-        if (!empty($hire_date) && !empty($birthday)) {
-            $hire_date = date_format($hireDate , 'Y-m-d');
-            $requiredColumn['hire_date'] = $hire_date;
-            $birthday = date_format($birthdayDate, 'Y-m-d');
-            $requiredColumn['birthday'] = $birthday;
-        } elseif (!empty($birthday)) {
-            $requiredColumn['hire_date'] = NULL;
-            $birthday = date_format($birthdayDate, 'Y-m-d');
-            $requiredColumn['birthday'] = $birthday;
-        } elseif (!empty($hire_date)) {
-            $requiredColumn['birthday'] = NULL;
-            $hire_date = date_format($hireDate , 'Y-m-d');
-            $requiredColumn['hire_date'] = $hire_date;
-        } else {
-            $requiredColumn['hire_date'] = NULL;
-            $requiredColumn['birthday'] = NULL;
+        if (!empty($birthday)) {
+            $requiredColumn['birthday'] = date_format($birthdayDate, 'Y-m-d');
+        }
+        
+        if (!empty($hire_date)) {
+            $requiredColumn['hire_date']  = date_format($hireDate , 'Y-m-d');
         }
 
         return $requiredColumn;
     }
 
-    public function updateCheckColumn($userId, $requiredColumn)
+    public function updateCheckColumn($userId)
     {
         DB::transaction(function() use($userId) {
             $this->where('id',$userId)->update(['is_registered' => 1]);
         });
-        $requiredColumn['is_registered'] = 1;
-
-        return $requiredColumn;
     }
 
 

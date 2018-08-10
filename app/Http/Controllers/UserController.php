@@ -23,9 +23,10 @@ class UserController extends Controller
         $requiredColumn = $this->userInfosModel->getCheckColumn($userId);
         extract($requiredColumn);
 
-        if (!$is_registered) {
+        if ($is_registered === 0) {
             if (!empty($tel) && !empty($sex) && !empty($store_id) && !empty($birthday) && !empty($hire_date)) {
-                $requiredColumn = $this->userInfosModel->updateCheckColumn($userId, $requiredColumn);
+                $this->userInfosModel->updateCheckColumn($userId);
+                $requiredColumn['is_registered'] = 1;
             }
 
             return view('index', compact('requiredColumn'));

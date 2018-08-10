@@ -14,7 +14,7 @@ class AddIsRegisteredToUserInfosTable extends Migration
     public function up()
     {
         Schema::table('user_infos', function (Blueprint $table) {
-            $table->integer('is_registered')->after('position_code');
+            $table->integer('is_registered')->after('position_code')->default(0);
         });
     }
 
