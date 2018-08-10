@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\notifications\ResetPasswordNotification;
 use DB;
+use Carbon\Carbon;
 
 class UserInfos extends Authenticatable
 {
@@ -26,7 +27,7 @@ class UserInfos extends Authenticatable
         'access_right',
         'position_name',
         'position_code',
-        'isRegistered'
+        'is_Registered'
     ];
 
     protected $dates = ['deleted_at'];
@@ -154,16 +155,18 @@ class UserInfos extends Authenticatable
          ]);
     }
 
-    public function updateUserInfoTest($input, $userId)
+    public function updateUserInfoCheckColumn($input, $userId)
     {
-        $this->where('id',$userId)->update([
-            'sex' => $input['sex'],
-            'birthday' => $input['birthday'],
-            'tel'=>$input['tel'],
-            'hire_date'=>$input['hire_date'],
-            'store_id'=>$input['store_id'],
-            'is_registered'=>'1'
-         ]);
+        DB::transaction(function() use($input, $userId) {
+            $this->where('id',$userId)->update([
+                'sex' => $input['sex'],
+                'birthday' => $input['birthday'],
+                'tel'=>$input['tel'],
+                'hire_date'=>$input['hire_date'],
+                'store_id'=>$input['store_id'],
+                'is_registered'=>'1'
+            ]);
+        });
     }
 
     public function getUserRecord($email)
@@ -260,40 +263,23 @@ class UserInfos extends Authenticatable
             'is_registered' => $checkColumn->is_registered
         ];
 
-        extract($requiredColumn);
 
-        $birthdayDate = date_create($birthday);
-        $hireDate = date_create($hire_date);
+        if (!empty($requiredColumn['birthday'])) {
+            $requiredColumn['birthday'] = Carbon::parse($requiredColumn['birthday'])->format('Y-m-d');
+        }
 
-        if (!empty($hire_date) && !empty($birthday)) {
-            $hire_date = date_format($hireDate , 'Y-m-d');
-            $requiredColumn['hire_date'] = $hire_date;
-            $birthday = date_format($birthdayDate, 'Y-m-d');
-            $requiredColumn['birthday'] = $birthday;
-        } elseif (!empty($birthday)) {
-            $requiredColumn['hire_date'] = NULL;
-            $birthday = date_format($birthdayDate, 'Y-m-d');
-            $requiredColumn['birthday'] = $birthday;
-        } elseif (!empty($hire_date)) {
-            $requiredColumn['birthday'] = NULL;
-            $hire_date = date_format($hireDate , 'Y-m-d');
-            $requiredColumn['hire_date'] = $hire_date;
-        } else {
-            $requiredColumn['hire_date'] = NULL;
-            $requiredColumn['birthday'] = NULL;
+        if (!empty($requiredColumn['hire_date'])) {
+             $requiredColumn['hire_date'] = Carbon::parse($requiredColumn['hire_date'])->format('Y-m-d');
         }
 
         return $requiredColumn;
     }
 
-    public function updateCheckColumn($userId, $requiredColumn)
+    public function updateIsRegistered($userId)
     {
         DB::transaction(function() use($userId) {
             $this->where('id',$userId)->update(['is_registered' => 1]);
         });
-        $requiredColumn['is_registered'] = 1;
-
-        return $requiredColumn;
     }
 
 
