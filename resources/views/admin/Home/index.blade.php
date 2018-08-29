@@ -49,7 +49,7 @@
       <li>
         <a href="{{ route('admin.access_right.index') }}" class="admin__btn access_right__btn__position">
           <i class="fa fa-check mt70 fa-2x"></i>
-          <p>申請</p>
+          <p>お問い合わせ</p>
         </a>
       </li>
 
