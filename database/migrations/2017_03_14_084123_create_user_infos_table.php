@@ -19,11 +19,11 @@ class CreateUserInfosTable extends Migration
             $table->string('last_name');
             $table->string('email')->unique();
             $table->string('slack_user_id')->nullable();
-            $table->string('tel')->nullable();
-            $table->string('sex')->nullable();
-            $table->timestamp('birthday')->nullable();
-            $table->timestamp('hire_date')->nullable();
-            $table->integer('store_id')->nullable();
+            $table->string('tel')->nullable()->default(NULL);
+            $table->string('sex')->nullable()->default(NULL);
+            $table->timestamp('birthday')->nullable()->default(NULL);
+            $table->timestamp('hire_date')->nullable()->default(NULL);
+            $table->integer('store_id')->nullable()->default(NULL);
             $table->integer('access_right')->nullable();
             $table->integer('position_code')->nullable();
             $table->timestamps();

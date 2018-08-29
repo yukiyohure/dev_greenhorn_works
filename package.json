@@ -1,20 +1,18 @@
 {
-    "private": true,
-    "scripts": {
-        "dev": "webpack --config webpack.config.js --progress --hide-modules",
-        "watch": "webpack --config webpack.config.js --watch --progress --hide-modules ",
-        "hot": "webpack --config webpack.config.js --inline --hot",
-        "build": "webpack --config webpack.config.js"
-    },
-    "devDependencies": {
-        "axios": "^0.15.3",
-        "bootstrap-sass": "^3.3.7",
-        "jquery": "^3.1.1",
-        "laravel-mix": "^0.8.1",
-        "lodash": "^4.17.4",
-        "vue": "^2.1.10"
-    },
-    "dependencies": {
-        "bootstrap-sass": "^3.3.7"
-    }
+  "private": true,
+  "scripts": {
+    "dev": "webpack --config webpack.config.js --progress --hide-modules",
+    "watch": "webpack --config webpack.config.js --watch --progress --hide-modules ",
+    "hot": "webpack --config webpack.config.js --inline --hot",
+    "build": "webpack --config webpack.config.js"
+  },
+  "devDependencies": {
+    "axios": "^0.15.3",
+    "bootstrap-sass": "^3.3.7",
+    "jquery": "^3.1.1",
+    "laravel-mix": "^0.8.1",
+    "lodash": "^4.17.4",
+    "vue": "^2.1.10"
+  }
 }
+
