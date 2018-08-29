@@ -15,7 +15,7 @@ Auth::routes();
 Route::group(['prefix' => '/'], function() {
   Route::get('/', function () {
     if (Auth::check()){
-      return view('index');
+      return redirect()->route('home');
     }else{
       return view('auth/login');
     };
@@ -23,6 +23,7 @@ Route::group(['prefix' => '/'], function() {
   Route::get('slack/login', 'Auth\AuthenticateController@slackAuth');
   Route::get('callback', 'Auth\AuthenticateController@userinfo');
   Route::get('home', 'UserController@index')->name('home');
+  Route::post('home', 'UserController@update')->name('home.update');
   Route::resource('report', 'DailyReportController');
   Route::resource('/schedule', 'WorkScheduleController', ['except' => 'show']);
   Route::post('/register', 'Auth\RegisterController@register');

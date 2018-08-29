@@ -652,6 +652,15 @@ form.user-search {
   border: solid 3px #5ba654;
 }
 
+.showModal {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.required {
+  color: #eb1313;
+}
+
 .user-navbar {
   background-color: #fff;
 
