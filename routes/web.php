@@ -60,7 +60,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.' ,'namespace' => 'Admin'], fu
 
   // access_right
   Route::get('/access_right', ['as' => 'access_right.index', 'uses' => 'AccessRightController@index']);
-  Route::post('/access_right/sendMail', ['as' => 'access_right.sendMail', 'uses' => 'AccessRightController@sendMail']);
+  Route::post('/access_right/sendSlack', ['as' => 'access_right.sendSlack', 'uses' => 'AccessRightController@sendSlack']);
   Route::get('/access_right/permission', ['as' => 'access_right.permission', 'uses' => 'AccessRightController@permission']);
   Route::post('/access_right/replyMail/{query}', ['as' => 'access_right.replyMail', 'uses' => 'AccessRightController@replyMail']);
 

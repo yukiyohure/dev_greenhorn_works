@@ -2,30 +2,26 @@
 @section('content')
 
 
-<?php $message_placeholder = '例）ユーザーと店舗を作成・更新・編集したいので、その権限を頂けますか？'; ?>
-
+@if(isset($messageForErr))
+    <script>
+      alert('おっと！通信エラーみたいです。もう一度試して！');
+    </script>
+@endif
 
 <div style="padding: 30px"> <!-- このstyle属性は一時的処置です -->
-  <h1>権限申請</h1>
-  {!! Form::open(['route' => 'admin.access_right.sendMail', 'method' => 'post']) !!}
-    <label>
-      承認者
-    </label>
-    {!!
-        Form::select('authorizer_id',
-                      [null => '承認者選択'] + array_pluck($adminuserinfos, 'last_name', 'id'),
-                      null,
-                      ['class' => 'form-control'])
-    !!}
-    <label>
-      メッセージ
-    </label>
-    {!!
-        Form::textarea('message',
-                        null,
-                        ['class' => 'form-control', 'placeholder' => $message_placeholder])
-    !!}
-    <button class="btn btn-primary" style="float: right; clear: both; margin-top: 20px">送信</button> <!-- このstyle属性は一時的処置です -->
-  {!! Form::close() !!}
+    <h1>お問い合わせ</h1>
+    {!! Form::open(['route' => 'admin.access_right.sendSlack', 'method' => 'post']) !!}
+        <label>
+            メッセージ
+        </label>
+        <div class="form-group @if(!empty($errors->first('message'))) has-error @endif">
+            {!! Form::textarea('message', $messageForErr ?? null, ['class' => 'form-control', 'placeholder' => 'お問い合わせ内容を記入して送信してください。']) !!}
+            <span class="help-block">{{$errors->first('message')}}</span>
+            <button class="btn btn-primary" style="float: right; clear: both; margin-top: 20px">送信</button> <!-- このstyle属性は一時的処置です -->
+        </div>
+    {!! Form::close() !!}
 </div>
+
+<? $data['error'] = ""; ?>
+
 @endsection

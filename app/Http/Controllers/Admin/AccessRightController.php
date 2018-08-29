@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Auth;
 use Mail;
 use App\Services\Classes\Cryptogram;
 
+const TARGET = "@greenhorn_modify_team";
+
 class AccessRightController extends Controller
 {
     protected $adminusers;
@@ -39,36 +41,26 @@ class AccessRightController extends Controller
         return view('admin.access_right.index', compact('adminuserinfos'));
     }
 
-    public function sendMail(Request $request)
+    public function sendSlack(Request $request, AccessRightRequest $req)
     {
-        $admin_user_id = Auth::id();
+        $adminUserId = Auth::id();
 
-        // 申請者からの入力情報を全て取得
-        // 内容: authorizer_id, message
+        //申請者からの入力情報を取得 内容: message
         $inputs = $request->all();
 
         // 管理者の詳細情報をIdで取得
-        $adminuserinfo = $this->userinfos
-                              ->getUserInfoByAdminUserId($admin_user_id)
+        $adminUserInfo = $this->userinfos
+                              ->getUserInfoByAdminUserId($adminUserId)
                               ->first();
 
-        // 承認者のメールアドレスを承認者のuser_info_idで検索し、UserInfosテーブルから取得
-        $authorizer_email = $this->userinfos
-                                 ->getEmailByUserInfoId($inputs['authorizer_id'])
-                                 ->first()
-                                 ->email;
-
-        $inputs['user_info_id'] = $adminuserinfo['id'] ?? '';
-        $inputs['first_name'] = $adminuserinfo['first_name'] ?? '';
-        $inputs['last_name'] = $adminuserinfo['last_name'] ?? '';
-        $inputs['email'] = $adminuserinfo['email'] ?? '';
-        $inputs['authorizer_email'] = $authorizer_email;
-
-        // メールで内容とView (access_permission_email.blade.php)を付与して送信
-        Mail::to($authorizer_email)->send(new ApplicationMail($inputs));
-
-        // メール送信完了画面を表示
-        return view('admin.access_right.email_sent');
+        //slackメッセージ送信
+        try {
+            $this->sendSlackMessage($adminUserInfo, $inputs);
+            return view('admin.access_right.slack_sent');
+        } catch (\Exception $e) {
+            $messageForErr = $inputs['message'];
+            return view('admin.access_right.index', compact('messageForErr'));
+        }
     }
 
     public function replyMail(Request $request, $query)
@@ -111,6 +103,18 @@ class AccessRightController extends Controller
         }
 
         return $inputs;
+    }
+
+    //slack Apiのロジック
+    public function sendSlackMessage($adminUserInfo, $inputs)
+    {
+        $adminUserFullname = $adminUserInfo['last_name'] . " " . $adminUserInfo['first_name'];
+        $slackApiKey = env('SLACK_API_KEY');
+        $text = "{". $adminUserFullname . "}さんからのお問い合わせ: " .  "「" . $inputs['message'] . "」";
+        $textTarget = urlencode($text);
+        $channelTarget = urlencode(TARGET);
+        $url = "https://slack.com/api/chat.postMessage?token=${slackApiKey}&channel=${channelTarget}&as_user=false&username=greenhorn_bot&text=${textTarget}";
+        $response = file_get_contents($url);
     }
 
 }
