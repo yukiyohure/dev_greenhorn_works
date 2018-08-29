@@ -1,9 +1,9 @@
-/node_modules
+/node_modules/
 /public/hot
-/public/storage
-/public/schedules
+/public/storage/
+/public/schedules/
 /storage/*.key
-/vendor
+/vendor/
 /.idea
 /.vscode
 /.vagrant
