@@ -24,7 +24,6 @@ Route::group(['prefix' => '/'], function() {
   Route::get('callback', 'Auth\AuthenticateController@userinfo');
   Route::get('home', 'UserController@index')->name('home');
   Route::post('home', 'UserController@update')->name('home.update');
-  Route::resource('report', 'DailyReportController');
   Route::resource('/schedule', 'WorkScheduleController', ['except' => 'show']);
   Route::post('/register', 'Auth\RegisterController@register');
   Route::get('/register/{query}', 'Auth\RegisterController@showRegistrationForm');
@@ -40,7 +39,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.' ,'namespace' => 'Admin'], fu
   Route::post('logout', ['as' => 'logout', 'uses' => 'Auth\LoginController@logout']);
 
 
-  Route::resource('report', DailyReportController::class, ['only' => ['index', 'show']]);
   Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
   Route::resource('store', StoreController::class);
 

@@ -8,7 +8,7 @@
         @if ($selfinfo->access_right & env('ACCESS_RIGHT_USER'))
           <a class="btn" href="{{ route('admin.user.create')}}">研修生を追加</a>
         @endif
-        <a　class="btn" href="#openModal">研修生を検索</a>
+        <a class="btn" href="#openModal">研修生を検索</a>
       </div>
 
       <div id="openModal" class="modalDialog">

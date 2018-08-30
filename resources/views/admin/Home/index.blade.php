@@ -19,7 +19,7 @@
       </li>
 
       <li>
-        <a href="{{ route('admin.report.index') }}" class="admin__btn dailyreport__btn__position">
+        <a href="" class="admin__btn dailyreport__btn__position">
         	<i class="fa fa-file-text-o fa-2x mt70"></i>
           <p>日報</p>
         </a>

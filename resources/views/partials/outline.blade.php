@@ -67,7 +67,7 @@
                           </a>
                           <ul class="dropdown-menu">
                             <li>
-                              <a href="{{ route('report.index') }}">
+                              <a href="">
                                 日報一覧
                               </a>
                             </li>
