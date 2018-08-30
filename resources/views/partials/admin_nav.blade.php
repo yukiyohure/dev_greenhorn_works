@@ -118,12 +118,12 @@
                         </a>
                         <ul class="dropdown-menu">
                           <li>
-                            <a href="{{ route('admin.user.index') }}">
+                            <a href="">
                               研修生一覧
                             </a>
                           </li>
                           <li>
-                            <a href="{{ route('admin.user.create') }}">
+                            <a href="">
                               研修生を追加
                             </a>
                           </li>

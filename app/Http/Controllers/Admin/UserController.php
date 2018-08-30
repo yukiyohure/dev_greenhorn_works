@@ -33,21 +33,7 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
-        $inputs = $request->all();
-
-        // 管理者からのインプットを正常化
-        $inputs = $this->users->normalizeInputs($inputs);
-
-        // 自身のユーザー情報を取得
-        $self_user_id = Auth::id();
-        $selfinfo = $this->userinfos->getUserInfoByUserId($self_user_id);
-
-        // デフォルト：　ユーザー情報全権取得
-        //　管理者が指定した条件によりユーザー情報を取得
-        $users = $this->users->getUsersFromSearchingResult($inputs);
-
-        $stores = $this->stores->all();
-        return view('admin.user.index', compact('users', 'stores', 'selfinfo'));
+        return view('admin.user.index');
     }
 
     /**
@@ -57,8 +43,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $stores = $this->stores->orderBy('kana_name', 'asc')->all();
-        return view('admin.user.create', compact('stores'));
+        return view('admin.user.create');
     }
 
     /**
@@ -69,13 +54,7 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-        //usersを第一引数に入れる事によって、バリデーションを実行する事が出来るようになる。
-        $input = $request->all();
-        $this->userinfos->saveUserInfo($input);
-
-        Mail::to($input['email'])->send(new AccountRegister($input));
-
-        return redirect()->route('admin.user.index');
+        //
     }
 
     /**
@@ -86,13 +65,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        // 自身のユーザー情報を取得
-        $self_user_id = Auth::id();
-        $selfinfo = $this->userinfos->getUserInfoByUserId($self_user_id);
-
-        // 選択した研修生の情報を取得
-        $user =  $this->users->find($id);
-        return view('admin.user.show', compact('user', 'selfinfo'));
+        return view('admin.user.show');
     }
 
     /**
@@ -103,9 +76,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user =  $this->users->find($id);
-        $stores = $this->stores->orderBy('kana_name', 'asc')->all();
-        return view('admin.user.edit', compact('user', 'stores'));
+        return view('admin.user.edit');
     }
 
     /**
@@ -117,15 +88,7 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, $id)
     {
-        $user =  $this->users->find($id);
-        $input =  $request->all();
-        $this->userinfos->updateUserInfo($input, $user);
-
-        User::where('id', $id)->update([
-                'name'=>$input['name']
-         ]);
-
-        return redirect()->route('admin.user.index');
+        //
     }
 
     /**
@@ -136,18 +99,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user =  $this->users->find($id);
-        $userinfo = $this->userinfos->find($user['user_info_id']);
-
-        $userinfo->delete();
-        $user->delete();
-
-        return redirect()->route('admin.user.index');
-    }
-
-     public function getUserList($id)
-    {
-      return UserInfos::where('store_id', $id)->get();
+        //
     }
 
 }

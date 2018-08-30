@@ -107,28 +107,23 @@
         </tr>
       </thead>
       <tbody>
-        @foreach($users as $user)
           <tr>
-            <td>{{ $user->info->last_name }}</td>
-            <td>{{ $user->info->first_name }}</td>
-            <td>{{ $user->info->sex}}</td>
-            @if($user->info->hire_date)
-              <td>{{ date("Y/m/d", strtotime($user->info->hire_date)) }}</td>
-            @else
-              <td></td>
-            @endif
-            <td>{{ $user->info->store->name }}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
             <td>
-              <a class="btn btn-success" href="{{ route('admin.user.show', $user->id) }}">詳細</a>
+              <a class="btn btn-success" href="">詳細</a>
             </td>
           </tr>
-        @endforeach
       </tbody>
     </table>
   </div><!-- content-wrapper closing tag -->
 
   <div class="bottom-btn-wrapper">
-    <a href="{{ route('admin.home') }}" class="bottom-btn">ホームへ</a>
+    <a href="" class="bottom-btn">ホームへ</a>
   </div>
 
   @endsection

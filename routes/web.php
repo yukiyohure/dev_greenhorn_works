@@ -47,7 +47,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.' ,'namespace' => 'Admin'], fu
   Route::resource('adminuser', AdminUserController::class);
   Route::get('adminuser/{adminuser}/mailedit', ['as' => 'adminuser.mailedit', 'AdminUserController@mailedit']);
   Route::post('adminuser/sendmail', ['as' => 'adminuser.sendmail', 'uses' => 'AdminUserController@sendmail']);
-  Route::resource('user', 'UserController');
   Route::POST('password/email',['as' => 'password.email', 'uses' => 'Auth\ForgotPasswordController@sendResetLinkEmail']);
   Route::GET('password/reset',['as' => 'password.request', 'uses' => 'Auth\ForgotPasswordController@showLinkRequestForm']);
   Route::POST('password/reset', ['as' => 'password.request', 'uses' => 'Auth\ResetPasswordController@reset']);
@@ -81,6 +80,4 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.' ,'namespace' => 'Admin'], fu
   Route::put('question/create', ['as' => 'question.updateAnswer', 'uses' => 'QuestionController@updateAnswer']);
   Route::resource('question', QuestionController::class);
 
-
 });
-
