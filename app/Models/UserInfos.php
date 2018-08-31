@@ -139,20 +139,22 @@ class UserInfos extends Authenticatable
         ]);
     }
 
-    public function updateUserInfo($input, $user)
+    public function updateUserInfo($input, $userInfoId)
     {
-        $this->where('id',$user['user_info_id'])->update([
-            'first_name' => $input['first_name'],
-            'last_name' => $input['last_name'],
-            'sex' => $input['sex'],
-            'birthday' => $input['birthday'],
-            'email'=>$input["email"],
-            'tel'=>$input['tel'],
-            'hire_date'=>$input['hire_date'],
-            'store_id'=>$input['store_id'],
-            'access_right' => 0,
-            'position_code' => 100
-         ]);
+        DB::transaction(function() use($input, $userInfoId) {
+            $this->where('id',$userInfoId)->update([
+                'first_name' => $input['first_name'],
+                'last_name' => $input['last_name'],
+                'sex' => $input['sex'],
+                'birthday' => $input['birthday'],
+                'email'=>$input["email"],
+                'tel'=>$input['tel'],
+                'hire_date'=>$input['hire_date'],
+                'store_id'=>$input['store_id'],
+                'access_right' => 0,
+                'position_code' => 100
+            ]);
+        });
     }
 
     public function updateUserInfoCheckColumn($input, $userId)

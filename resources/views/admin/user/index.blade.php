@@ -5,9 +5,6 @@
   <h2 class="brand-header">研修生一覧</h2>
     {!! Form::open(['route' => 'admin.user.index', 'method' => 'GET']) !!}
       <div class="btn-wrapper">
-        @if ($selfinfo->access_right & env('ACCESS_RIGHT_USER'))
-          <a class="btn" href="{{ route('admin.user.create')}}">研修生を追加</a>
-        @endif
         <a　class="btn" href="#openModal">研修生を検索</a>
       </div>
 

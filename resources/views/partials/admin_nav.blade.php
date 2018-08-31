@@ -122,11 +122,6 @@
                               研修生一覧
                             </a>
                           </li>
-                          <li>
-                            <a href="{{ route('admin.user.create') }}">
-                              研修生を追加
-                            </a>
-                          </li>
                         </ul>
                       </li>
                       <li class="dropmenu">
