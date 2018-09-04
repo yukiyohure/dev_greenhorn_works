@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use DB;
 
 class User extends Authenticatable
 {
@@ -142,5 +143,13 @@ class User extends Authenticatable
         $user->save();
         return $user;
     }
+
+    public function restoreDeletedUser($userInfoId)
+    {
+        DB::transaction(function() use($userInfoId) {
+            $this->withTrashed()->where('user_info_id', $userInfoId)->update(['deleted_at' => null]);
+        });
+    }
+
 }
 
