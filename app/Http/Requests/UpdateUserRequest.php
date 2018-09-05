@@ -31,7 +31,7 @@ class UpdateUserRequest extends FormRequest
             ],
             'store_id' => 'required|integer|between:1,3',
             'tel' => 'required|numeric|digits:11',
-            'birthday' => 'required|date|before:today',
+            'birthday' => 'required|date|before:today|after:1990-01-01',
             'hire_date' => 'required|date|after:2015-05-14'
         ];
     }
