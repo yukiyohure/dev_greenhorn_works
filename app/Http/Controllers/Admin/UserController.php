@@ -8,8 +8,6 @@ use App\Models\Stores;
 use App\Models\UserInfos;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
-use App\Mail\AccountRegister;
-use Mail;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
@@ -42,8 +40,8 @@ class UserController extends Controller
         $self_user_id = Auth::id();
         $selfinfo = $this->userinfos->getUserInfoByUserId($self_user_id);
 
-        // デフォルト：　ユーザー情報全権取得
-        //　管理者が指定した条件によりユーザー情報を取得
+        // デフォルト： ユーザー情報全権取得
+        // 管理者が指定した条件によりユーザー情報を取得
         $users = $this->users->getUsersFromSearchingResult($inputs);
 
         $stores = $this->stores->all();
@@ -57,8 +55,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $stores = $this->stores->orderBy('kana_name', 'asc')->all();
-        return view('admin.user.create', compact('stores'));
+
     }
 
     /**
@@ -67,15 +64,9 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserRequest $request)
+    public function store()
     {
-        //usersを第一引数に入れる事によって、バリデーションを実行する事が出来るようになる。
-        $input = $request->all();
-        $this->userinfos->saveUserInfo($input);
 
-        Mail::to($input['email'])->send(new AccountRegister($input));
-
-        return redirect()->route('admin.user.index');
     }
 
     /**
@@ -104,7 +95,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user =  $this->users->find($id);
-        $stores = $this->stores->orderBy('kana_name', 'asc')->all();
+        $stores = $this->stores->orderBy('kana_name', 'asc')->get();
         return view('admin.user.edit', compact('user', 'stores'));
     }
 
@@ -117,13 +108,10 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, $id)
     {
-        $user =  $this->users->find($id);
         $input =  $request->all();
-        $this->userinfos->updateUserInfo($input, $user);
+        $this->userinfos->updateUserInfo($input, $id);
 
-        User::where('id', $id)->update([
-                'name'=>$input['name']
-         ]);
+        User::where('id', $id)->update(['name' => $input['name']]);
 
         return redirect()->route('admin.user.index');
     }

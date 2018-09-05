@@ -47,11 +47,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.' ,'namespace' => 'Admin'], fu
   Route::resource('adminuser', AdminUserController::class);
   Route::get('adminuser/{adminuser}/mailedit', ['as' => 'adminuser.mailedit', 'AdminUserController@mailedit']);
   Route::post('adminuser/sendmail', ['as' => 'adminuser.sendmail', 'uses' => 'AdminUserController@sendmail']);
-  Route::resource('user', 'UserController');
-  Route::POST('password/email',['as' => 'password.email', 'uses' => 'Auth\ForgotPasswordController@sendResetLinkEmail']);
-  Route::GET('password/reset',['as' => 'password.request', 'uses' => 'Auth\ForgotPasswordController@showLinkRequestForm']);
-  Route::POST('password/reset', ['as' => 'password.request', 'uses' => 'Auth\ResetPasswordController@reset']);
-  Route::GET('password/reset/{token}', ['as' => 'password.reset', 'uses' => 'Auth\ResetPasswordController@showResetForm']);
+  Route::resource('user', 'UserController', ['except' => ['create', 'store']]);
+  Route::post('password/email',['as' => 'password.email', 'uses' => 'Auth\ForgotPasswordController@sendResetLinkEmail']);
+  Route::get('password/reset',['as' => 'password.request', 'uses' => 'Auth\ForgotPasswordController@showLinkRequestForm']);
+  Route::post('password/reset', ['as' => 'password.request', 'uses' => 'Auth\ResetPasswordController@reset']);
+  Route::get('password/reset/{token}', ['as' => 'password.reset', 'uses' => 'Auth\ResetPasswordController@showResetForm']);
 
   Route::post('/register', ['as' => 'register', 'uses' => 'Auth\AdminRegisterController@adminRegister']);
   Route::get('/register/', 'Auth\AdminRegisterController@showAdminRegistrationForm');
@@ -75,12 +75,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.' ,'namespace' => 'Admin'], fu
   Route::put('item_category/update_confirm', ['as' => 'item_category.updateCategory', 'uses' => 'ItemCategoryController@updateCategory']);
   Route::resource('item_category', ItemCategoryController::class);
 
-  // Route::get('question', ['as' => 'question.index', 'uses' => 'QuestionController@index']);
-  // Route::post('question/show', ['as' => 'question.show', 'uses' => 'QuestionController@show']);
   Route::get('question/create', ['as' => 'question.create', 'uses' => 'QuestionController@create']);
   Route::put('question/create', ['as' => 'question.updateAnswer', 'uses' => 'QuestionController@updateAnswer']);
   Route::resource('question', QuestionController::class);
-
 
 });
 

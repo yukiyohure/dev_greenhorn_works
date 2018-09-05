@@ -139,20 +139,22 @@ class UserInfos extends Authenticatable
         ]);
     }
 
-    public function updateUserInfo($input, $user)
+    public function updateUserInfo($input, $userInfoId)
     {
-        $this->where('id',$user['user_info_id'])->update([
-            'first_name' => $input['first_name'],
-            'last_name' => $input['last_name'],
-            'sex' => $input['sex'],
-            'birthday' => $input['birthday'],
-            'email'=>$input["email"],
-            'tel'=>$input['tel'],
-            'hire_date'=>$input['hire_date'],
-            'store_id'=>$input['store_id'],
-            'access_right' => 0,
-            'position_code' => 100
-         ]);
+        DB::transaction(function() use($input, $userInfoId) {
+            $this->where('id',$userInfoId)->update([
+                'first_name' => $input['first_name'],
+                'last_name' => $input['last_name'],
+                'sex' => $input['sex'],
+                'birthday' => $input['birthday'],
+                'email'=>$input["email"],
+                'tel'=>$input['tel'],
+                'hire_date'=>$input['hire_date'],
+                'store_id'=>$input['store_id'],
+                'access_right' => 0,
+                'position_code' => 100
+            ]);
+        });
     }
 
     public function updateUserInfoCheckColumn($input, $userId)
@@ -238,7 +240,15 @@ class UserInfos extends Authenticatable
 
     public function getSlackUserInfos($userData)
     {
-        return $this->firstOrNew(['slack_user_id' => $userData->id]);
+        return $this->withTrashed()->whereNotNull('id')->firstOrNew(['slack_user_id' => $userData->id]);
+    }
+
+    public function restoreDeletedUserInfo($slackId)
+    {
+        DB::transaction(function() use($slackId) {
+            $this->withTrashed()->where('slack_user_id', $slackId)->update(['deleted_at' => null]);
+        });
+        return $this->where('slack_user_id', $slackId)->get()[0];
     }
 
     public function saveUserInfos($userInfo, $firstName, $lastName, $userData)

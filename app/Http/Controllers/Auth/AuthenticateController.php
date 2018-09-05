@@ -36,11 +36,14 @@ class AuthenticateController extends Controller
         list($firstName, $lastName) = $this->splitUserName($userData->name);
 
         $userInfo = $this->userInfos->getSlackUserInfos($userData);
-        $savedUserInfo = $this->userInfos->saveUserInfos($userInfo, $firstName, $lastName, $userData);
-
-        $userInfoId = $savedUserInfo->id;
-        $user = $this->users->getSlackUsers($userInfoId);
-        $savedUser = $this->users->saveUser($user, $userData, $userInfoId);
+        if ($userInfo['deleted_at'] === null) {
+            $savedUserInfo = $this->userInfos->saveUserInfos($userInfo, $firstName, $lastName, $userData);
+        } else {
+            $savedUserInfo = $this->userInfos->restoreDeletedUserInfo($userInfo['slack_user_id']);
+            $this->users->restoreDeletedUser($savedUserInfo->id);
+        }
+        $user = $this->users->getSlackUsers($savedUserInfo->id);
+        $savedUser = $this->users->saveUser($user, $userData, $savedUserInfo->id);
 
         Auth::login($savedUser);
         return redirect('/');
