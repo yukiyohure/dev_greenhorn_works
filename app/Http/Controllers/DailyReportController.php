@@ -25,6 +25,7 @@ class DailyReportController extends Controller
       */
     public function index(Request $request)
     {
+        dd('kanatani');
         $inputs = $request->all();
         $inputs['id'] = Auth::id();
 
