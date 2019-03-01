@@ -47,6 +47,7 @@ class DailyReportController extends Controller
       */
     public function store(DailyReportRequest $request)
     {
+        dd('store');
         $userId = Auth::id();
 
         $input = $request->all();
