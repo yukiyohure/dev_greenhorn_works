@@ -7,7 +7,7 @@
 
 @section('content')
 
-  {{ Form::open(array('route'=> ['admin.adminuser.update', $user->id], 'method'=>'put')) }}
+  {{ Form::open(array('route'=> ['admin.user.update', $user->id], 'method'=>'put')) }}
     <h2 class="brand-header">研修生の編集</h2>
 
     <div class="container">
@@ -19,7 +19,7 @@
             <span class="help-block">{{$errors->first('name')}}</span>
           </div>
         </li>
-        
+
         <li>
           <h4>{!! Form::label('last_name', '苗字'); !!}</h4>
           <div class="form-group {{ $errors->has('last_name') ? 'has-error' :''}}">
@@ -88,11 +88,10 @@
         </li>
       </ul>
     </div><!-- container closing tag -->
+    <div class="btn-wrapper">
+      <a href="{{ route('admin.user.index') }}" class="btn">ユーザーの一覧画面に戻る</a>  
+      <button type="submit" class="btn btn-success">更新</button>
+    </div>
   {!! Form::close() !!}
-
-  <div class="btn-wrapper">
-    <a href="{{ route('admin.user.index') }}" class="btn">ユーザーの一覧画面に戻る</a>  
-    <button type="submit" class="btn btn-success">更新</button>
-  </div>
 
 @endsection

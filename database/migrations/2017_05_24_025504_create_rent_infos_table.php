@@ -21,7 +21,7 @@ class CreateRentInfosTable extends Migration
             $table->timestamp('rental_request_at'); // 貸し出し申請日
             $table->timestamp('scheduled_return_at')->nullable(); // 返却予定日
             $table->timestamp('return_at')->nullable(); // 返却日
-            $table->timestamp('rental_at')->nullable(); //　貸し出し日
+            $table->timestamp('rental_at')->nullable(); // 貸し出し日
             $table->timestamp('approved_at')->nullable();
             $table->timestamps();
 		});

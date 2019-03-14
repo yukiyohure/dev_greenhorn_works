@@ -30,7 +30,10 @@ class UserInfos extends Authenticatable
         'is_Registered'
     ];
 
-    protected $dates = ['deleted_at'];
+    protected $dates = [
+        'deleted_at',
+        'hire_date'
+    ];
 
     public function store ()
     {
@@ -279,6 +282,43 @@ class UserInfos extends Authenticatable
         DB::transaction(function() use($userId) {
             $this->where('id',$userId)->update(['is_registered' => 1]);
         });
+    }
+
+    public function getDataBySearch($keyword)
+    {
+        $query = $this->query();
+        if (!empty($keyword)) {
+
+            if (!empty($keyword['last_name'])) {
+                $query->where('last_name', 'like', '%'.$keyword['last_name'].'%');
+            }
+
+            if (!empty($keyword['first_name'])) {
+                $query->where('first_name', 'like', '%'.$keyword['first_name'].'%');
+            }
+
+            if (!empty($keyword['store_id'])) {
+                $query->whereHas('store', function ($query) use ($keyword) {
+                    $query->where('id', '=', $keyword['store_id']);
+                });
+            }
+
+            if (!empty($keyword['sex'])) {
+                $query->where('sex', '=', $keyword['sex']);
+            }
+
+            if (!empty($keyword['hire_date-start-date'] && !empty($keyword['hire_date-end-date']))) {
+                $query->whereBetween('hire_date', ['hire_date-start-date', 'hire_date-end-date']);
+            } elseif (!empty($keyword['hire_date-start-date'])) {
+                $query->where('hire_date', '>=', $keyword['hire_date-start-date']);
+            } elseif (!empty($keyword['hire_date-end-date'])) {
+                $query->where('hire_date', '<=', $keyword['hire_date-end-date']);
+            }
+
+            return $query->get();
+        } else {
+            return $this->all();
+        }
     }
 
 }

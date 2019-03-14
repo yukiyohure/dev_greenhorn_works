@@ -5,10 +5,10 @@
   <h2 class="brand-header">研修生一覧</h2>
     {!! Form::open(['route' => 'admin.user.index', 'method' => 'GET']) !!}
       <div class="btn-wrapper">
-        @if ($selfinfo->access_right & env('ACCESS_RIGHT_USER'))
+        {{-- @if ($selfinfo->access_right & env('ACCESS_RIGHT_USER')) --}}
           <a class="btn" href="{{ route('admin.user.create')}}">研修生を追加</a>
-        @endif
-        <a　class="btn" href="#openModal">研修生を検索</a>
+        {{-- @endif --}}
+        <a class="btn" href="#openModal">研修生を検索</a>
       </div>
 
       <div id="openModal" class="modalDialog">
@@ -80,7 +80,6 @@
               </td>
             </tr>
           </tbody>
-
           <tfoot class="search-tfoot">
             <tr class="search-tr">
               <td colspan="5" class="search-td">
@@ -107,17 +106,18 @@
         </tr>
       </thead>
       <tbody>
+        @foreach ($users as $user)
           <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{ $user->last_name }}</td>
+            <td>{{ $user->first_name }}</td>
+            <td>{{ $user->sex }}</td>
+            <td>{{ $user->hire_date->format('Y/m/d') }}</td>
+            <td>{{ $user->store->name }}</td>
             <td>
-              <a class="btn btn-success" href="">詳細</a>
+              <a class="btn btn-success" href="{{ route('admin.user.show', $user->id) }}">詳細</a>
             </td>
           </tr>
+        @endforeach
       </tbody>
     </table>
   </div><!-- content-wrapper closing tag -->

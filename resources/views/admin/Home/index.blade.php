@@ -33,7 +33,7 @@
       </li>
 
       <li>
-        <a href="" class="admin__btn user__btn__position">
+        <a href="{{ route('admin.user.index') }}" class="admin__btn user__btn__position">
         	<i class="fa fa-user mt70 fa-2x"></i>
           <p>ユーザー</p>
         </a>

@@ -5,12 +5,12 @@
   <h2 class="brand-header">研修生の詳細情報</h2>
 
   <div class="btn-wrapper">
-    @if ($selfinfo->access_right & env('ACCESS_RIGHT_USER'))
+    {{-- @if ($selfinfo->access_right & env('ACCESS_RIGHT_USER')) --}}
       {!! Form::open(['route'=>['admin.user.destroy',$user->id],'method'=>'DELETE']) !!}
         <a class="btn" href="{{ $user->id }}/edit">編集</a>
         <button class="btn-danger btn" type="submit">削除</button>
       {!! Form::close() !!}
-    @endif
+    {{-- @endif --}}
   </div>
 
   <div class="container">
